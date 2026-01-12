@@ -12,3 +12,6 @@ class UserGenerator:
             surname=fake.last_name(),
             country=fake.country()
         )
+    @staticmethod
+    def fake_country():
+        return fake.country()

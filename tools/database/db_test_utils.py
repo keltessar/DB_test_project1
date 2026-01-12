@@ -1,6 +1,6 @@
 import pytest
 
-from sqlalchemy import select
+from sqlalchemy import select, update
 from .base_database import BaseDBManager
 from .models import User
 from bd_temp.bd_config import TestConfig
@@ -47,6 +47,20 @@ def db_utils(db_session):
             statement = select(User)
             result = self.session.execute(statement)
             return result.scalars().all()
+
+        def update_user_country(self, user_id, new_country):
+            """
+            Update user's country who has param ID to new data from param Country
+            :param user_id:
+            :param new_country:
+            :return:
+            """
+            user = self.get_user(user_id)
+            if user:
+                user.country = new_country
+                self.session.commit()
+                return user
+            return False
 
 
         def find_users_by_name(self, name):
